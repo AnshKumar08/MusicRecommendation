@@ -6,8 +6,11 @@ from rapidfuzz import process, fuzz
 
 @st.cache_data
 def load():
-    data = pd.read_csv("tracks.csv")
+    file_parts = ["tracks_part1.csv", "tracks_part2.csv", "tracks_part3.csv", "tracks_part4.csv", "tracks_part5.csv"]
+    df_list = [pd.read_csv(file) for file in file_parts]
+    data = pd.concat(df_list, ignore_index=True)
     return data
+
 data = load()
 
 attributes = ['danceability','energy','loudness','speechiness','acousticness','instrumentalness','liveness','valence','tempo']
